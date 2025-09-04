@@ -371,6 +371,7 @@ const ProductGridItem = ({ product, isExpanded, onProductClick, isLowPerf = fals
   const expandedContainerRef = useRef<HTMLDivElement>(null);
   const addToCartRef = useRef<HTMLDivElement>(null);
   const [showDropdown, setShowDropdown] = useState(false);
+  const hasPrewarmedRef = useRef(false);
   
   // Auto-scroll to prioritize add-to-cart on desktop, center on mobile
   useEffect(() => {
@@ -459,6 +460,25 @@ const ProductGridItem = ({ product, isExpanded, onProductClick, isLowPerf = fals
     }
   }, [product, onProductClick, isExpanded]);
 
+  // Prewarm PDP-sized optimized image on intent (hover/touch) to avoid cold _next/image miss
+  const prewarmImage = useCallback(() => {
+    if (hasPrewarmedRef.current) return;
+    const src = (product as any).images && (product as any).images[0]?.url ? (product as any).images[0].url : product.image;
+    if (!src) return;
+    try {
+      // Match PDP sizes: max-w-3xl ~ 768px (or your PDP container); q matches ProductImage
+      const w = 896; // aligns with PDP desktop cap we use in sizes
+      const q = 65;
+      const optimized = `/_next/image?url=${encodeURIComponent(src)}&w=${w}&q=${q}`;
+      const img = new Image();
+      // Low priority hint; just warm the cache silently
+      (img as any).fetchPriority = 'low';
+      img.decoding = 'async';
+      img.src = optimized;
+      hasPrewarmedRef.current = true;
+    } catch {}
+  }, [product]);
+
   if (isExpanded) {
     // Expanded view - full width product details
     return (
@@ -508,6 +528,8 @@ const ProductGridItem = ({ product, isExpanded, onProductClick, isLowPerf = fals
     <div
       className="group cursor-pointer transition-all duration-200 ease-out hover:scale-105"
       onClick={handleClick}
+      onMouseEnter={prewarmImage}
+      onTouchStart={prewarmImage}
     >
       {product.isVideoProduct ? (
         <VideoProduct 

@@ -72,6 +72,8 @@ export default function RootLayout({
           href="https://6gy9systudbmcbju.public.blob.vercel-storage.com/ts-white-P2VTrySg3IQ4gdu17JGSrQ8RdLDgTm.png" 
           as="image" 
         />
+        <link rel="preconnect" href="https://6gy9systudbmcbju.public.blob.vercel-storage.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://cdn.shopify.com" crossOrigin="anonymous" />
         <link 
           rel="dns-prefetch" 
           href="//6gy9systudbmcbju.public.blob.vercel-storage.com" 

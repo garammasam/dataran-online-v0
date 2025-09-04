@@ -263,11 +263,13 @@ export function ProductImage({
           src={currentImage.url}
           alt={currentImage.altText || product.name || product.title || ''}
           fill
-          sizes={responsive.imageSizes}
+          sizes={enableSlider ? '(max-width: 1024px) 100vw, 896px' : responsive.imageSizes}
           className={`${needsZoom ? 'object-cover' : (enableSlider ? 'object-contain' : 'object-cover')}`}
-          loading="eager"
+          loading={currentImageIndex === 0 && enableSlider ? 'eager' : 'lazy'}
           decoding="async"
-          priority={currentImageIndex === 0}
+          priority={currentImageIndex === 0 && enableSlider}
+          quality={enableSlider ? 65 : undefined}
+          fetchPriority={currentImageIndex === 0 && enableSlider ? 'high' : undefined}
           onLoad={handleImageLoad}
           style={{
             transform: 'translateZ(0)',
