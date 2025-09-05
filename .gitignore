@@ -1,0 +1,16 @@
+.vercel
+.env*.local
+node_modules
+.DS_Store
+.env
+.env*.local
+.next
+.vercel
+node_modules
+out
+dist
+coverage
+.tmp
+.cache
+*.log
+**/*.local

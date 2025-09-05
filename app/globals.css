@@ -1,0 +1,385 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Enhanced typography hierarchy */
+@layer base {
+  /* Primary headings - high contrast */
+  .text-heading-primary {
+    @apply text-[#0b0c0c] font-bold tracking-tight;
+  }
+  
+  /* Secondary headings - medium contrast */
+  .text-heading-secondary {
+    @apply text-[#0b0c0c] font-semibold tracking-wide;
+  }
+  
+  /* Body text - good contrast */
+  .text-body-primary {
+    @apply text-[#0b0c0c] leading-relaxed;
+  }
+  
+  /* Secondary text - reduced contrast but still readable */
+  .text-body-secondary {
+    @apply text-[#7a8184] leading-normal;
+  }
+  
+  /* Muted text - low contrast for supporting info */
+  .text-muted {
+    @apply text-[#7a8184];
+  }
+  
+  /* Interactive elements - high contrast */
+  .text-interactive {
+    @apply text-[#0b0c0c] hover:text-[#7a8184] transition-colors;
+  }
+  
+  /* Focus states with high contrast */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-[#0b0c0c] focus:ring-offset-2;
+  }
+  
+  /* Enhanced focus for interactive elements */
+  .focus-interactive {
+    @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:bg-[#fcfdfd];
+  }
+
+  /* Performance optimizations for slow connections */
+  .slow-connection * {
+    animation-duration: 0.1s !important;
+    transition-duration: 0.1s !important;
+  }
+
+  .slow-connection img {
+    loading: lazy;
+  }
+
+  /* Reduce image quality on slow connections */
+  .image-quality-low img {
+    filter: blur(0.5px);
+    image-rendering: optimizeSpeed;
+  }
+
+  .image-quality-medium img {
+    image-rendering: optimizeQuality;
+  }
+
+  .image-quality-high img {
+    image-rendering: crisp-edges;
+  }
+
+  /* Disable expensive effects on slow connections */
+  .slow-connection .group:hover,
+  .slow-connection button:hover {
+    transform: none !important;
+    scale: none !important;
+  }
+
+  /* Optimize fonts for performance */
+  @font-face {
+    font-family: 'GeistMono';
+    font-display: swap; /* Improves loading performance */
+  }
+}
+
+/* Line clamp utilities */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 99%;
+    --foreground: 0 0% 4%;
+    --card: 0 0% 99%;
+    --card-foreground: 0 0% 4%;
+    --popover: 0 0% 99%;
+    --popover-foreground: 0 0% 4%;
+    --primary: 0 0% 4%;
+    --primary-foreground: 0 0% 99%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 4%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 48%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 4%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 99%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 4%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0rem;
+    
+    /* Responsive height constraints - prioritize product image */
+    --header-height: clamp(50px, 6vh, 70px);
+    --footer-height: clamp(30px, 4vh, 50px);
+    --content-padding: clamp(15px, 3vh, 30px);
+    --image-max-height-offset: clamp(4vh, 60px, 12vh);
+  }
+  
+  /* Responsive breakpoint-specific adjustments - prioritize product image */
+  @media (max-width: 640px) {
+    :root {
+      --image-max-height-offset: clamp(3vh, 50px, 8vh);
+    }
+  }
+  
+  @media (min-width: 641px) and (max-width: 1024px) {
+    :root {
+      --image-max-height-offset: clamp(4vh, 60px, 10vh);
+    }
+  }
+  
+  @media (min-width: 1025px) {
+    :root {
+      --image-max-height-offset: clamp(5vh, 80px, 12vh);
+    }
+  }
+  .dark {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 99%;
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 99%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 99%;
+    --primary: 0 0% 99%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 99%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 64%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 99%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 99%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 0 0% 83%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  :root {
+    /* Centralized viewport configuration - mobile URL bar aware */
+    --viewport-height: 100dvh; /* Dynamic viewport height respects URL bar */
+    --dialog-height: 100dvh;   /* Use dynamic height for dialogs */
+    --image-max-height-offset: 8rem;
+    --safe-viewport-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    
+    /* Mobile-specific fallbacks */
+    --viewport-height-fallback: 100vh;
+    --mobile-vh: 1vh; /* Will be updated by JS */
+  }
+  
+  /* Mobile browsers support check and fallbacks */
+  @supports not (height: 100dvh) {
+    :root {
+      --viewport-height: var(--viewport-height-px, 100vh);
+      --dialog-height: var(--viewport-height-px, 100vh);
+      --safe-viewport-height: var(--safe-viewport-height-px, calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)));
+    }
+  }
+
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    height: var(--viewport-height);
+  }
+}
+
+html {
+  height: var(--viewport-height);
+}
+
+/* Hide scrollbars globally */
+*::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+* {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+[role='dialog'] {
+  height: var(--viewport-height);
+}
+
+/* Prevent body scroll when cart is open */
+body:has([data-state="open"]) {
+  overflow: hidden;
+  height: var(--dialog-height);
+}
+
+/* Ensure cart never overflows viewport */
+[data-radix-dialog-content] {
+  max-height: var(--dialog-height) !important;
+  max-width: 100vw !important;
+  overflow: hidden !important;
+}
+
+/* Conservative cart container constraints */
+.cart-container {
+  max-height: var(--dialog-height);
+  overflow: hidden;
+}
+
+/* Marquee Animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
+/* Infinite scrolling marquee with duplicated content */
+@keyframes marquee-infinite {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee-infinite {
+  animation: marquee-infinite 3s linear infinite;
+}
+
+/* Performance-optimized animations for throttled devices */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  @keyframes fadeInUp {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slideDown {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes scaleIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slideInLeft {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slideInUp {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+}
