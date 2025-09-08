@@ -40,6 +40,8 @@ const nextConfig: NextConfig = {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 31536000, // 1 year cache
     dangerouslyAllowSVG: false,
+    // Configure allowed quality values for Next.js 16 compatibility
+    qualities: [25, 50, 65, 75, 90, 100],
   },
   experimental: {
     inlineCss: true,

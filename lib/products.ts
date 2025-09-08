@@ -130,6 +130,23 @@ function convertVideoProduct(videoProduct: VideoProduct): Product {
   return converted;
 }
 
+// Helper function to extract priority from product tags
+function getProductPriority(product: Product): number {
+  if (!product.tags) return 999; // Default priority for products without priority tags
+  
+  const priorityTag = product.tags.find(tag => 
+    tag.toLowerCase().startsWith('priority:')
+  );
+  
+  if (!priorityTag) return 999; // Default priority
+  
+  const priorityValue = priorityTag.toLowerCase().replace('priority:', '').trim();
+  const priority = parseInt(priorityValue, 10);
+  
+  // Return the priority number, or 999 if invalid
+  return isNaN(priority) ? 999 : priority;
+}
+
 // Get all products (Shopify + Video Products or fallback to static)
 export async function getAllProducts(): Promise<Product[]> {
   const allProducts: Product[] = [];
@@ -154,6 +171,26 @@ export async function getAllProducts(): Promise<Product[]> {
   } catch (error) {
     console.error('Failed to fetch video products:', error);
   }
+  
+  // Sort products by priority (lower number = higher priority)
+  // Products without priority tags get priority 999 (lowest priority)
+  allProducts.sort((a, b) => {
+    const priorityA = getProductPriority(a);
+    const priorityB = getProductPriority(b);
+    
+    // If priorities are equal, sort by creation date (newest first)
+    if (priorityA === priorityB) {
+      // For video products, use publishedAt
+      if (a.isVideoProduct && b.isVideoProduct) {
+        return new Date(b.publishedAt || '').getTime() - new Date(a.publishedAt || '').getTime();
+      }
+      // For regular products, we can't easily sort by creation date without additional API calls
+      // So we'll just maintain the original order for products with same priority
+      return 0;
+    }
+    
+    return priorityA - priorityB;
+  });
   
   return allProducts;
 }

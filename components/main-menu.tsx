@@ -92,17 +92,37 @@ export function MainMenu({ isBackVisible, onBack, onMenuToggle }: MainMenuProps)
         </span>
 
         <div className="size-4 relative flex items-center justify-center">
-          {/* Top bar */}
-          <span className={getMenuAnimationClasses(menuState, true)} />
-          {/* Bottom bar */}
-          <span className={getMenuAnimationClasses(menuState, false)} />
+          {/* Morphing icon container */}
+          <div className="relative w-4 h-4">
+            {/* Solid green square - morphs into other shapes */}
+            <div 
+              className={`absolute inset-0 transition-all duration-300 ease-[cubic-bezier(0.68,-0.55,0.265,1.55)] rounded-tr-[3px] rounded-br-[3px] ${
+                menuState === MenuState.CLOSED 
+                  ? 'bg-[#00b140] scale-100 opacity-100' 
+                  : 'bg-transparent scale-0 opacity-0'
+              }`}
+              style={{ backgroundColor: menuState === MenuState.CLOSED ? '#00b140' : 'transparent' }}
+            />
+            
+            {/* Hamburger/X lines - morphs from square */}
+            <div className={`absolute inset-0 transition-all duration-300 ease-[cubic-bezier(0.68,-0.55,0.265,1.55)] ${
+              menuState === MenuState.CLOSED 
+                ? 'scale-0 opacity-0' 
+                : 'scale-100 opacity-100'
+            }`}>
+              {/* Top line */}
+              <span className={getMenuAnimationClasses(menuState, true)} />
+              {/* Bottom line */}
+              <span className={getMenuAnimationClasses(menuState, false)} />
+            </div>
+          </div>
         </div>
       </button>
 
       {(menuState === MenuState.OPEN || menuState === MenuState.EXITING) && (
         <nav
           id="main-menu"
-          className={`absolute left-1/2 top-[20%] -translate-y-1/2 ml-8 ${
+          className={`absolute left-16 top-[20%] -translate-y-1/2 max-w-[calc(100vw-8rem)] ${
             menuState === MenuState.OPEN 
               ? 'animate-[slideInLeft_200ms_ease-out_forwards]' 
               : 'animate-[slideOutLeft_200ms_ease-in_forwards]'

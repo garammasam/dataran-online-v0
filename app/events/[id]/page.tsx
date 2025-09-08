@@ -239,7 +239,7 @@ export default function EventDetailPage() {
               >
                 <button
                   onClick={() => handleBuyTickets(event)}
-                  className="bg-black text-white px-8 py-3 font-mono text-sm font-semibold hover:bg-gray-800 transition-colors uppercase tracking-wide"
+                  className="bg-black text-white px-8 py-3 font-mono text-sm font-medium hover:bg-gray-800 transition-colors uppercase tracking-wide"
                 >
                   BUY TICKETS
                 </button>

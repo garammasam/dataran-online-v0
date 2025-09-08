@@ -4,7 +4,8 @@ import { useState, useMemo, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet';
-import { ChevronRight, Minus, Plus, X, ShoppingBag, Trash2 } from 'lucide-react';
+import { ChevronRightIcon } from '@/components/ui/morphing-icon';
+import { Minus, Plus, X, ShoppingBag, Trash2 } from 'lucide-react';
 import { useCart } from './cart-context';
 import { viewport } from '@/lib/viewport';
 import { mobileViewport } from '@/lib/mobile-viewport-simple';
@@ -98,7 +99,7 @@ function SwipeToRemove({
       >
         <div className="flex items-center space-x-2 text-brutalist-white">
           <Trash2 className="size-5" />
-          <span className="font-mono text-sm font-semibold uppercase">Remove</span>
+          <span className="font-mono text-sm font-medium uppercase">Remove</span>
         </div>
       </div>
       
@@ -194,12 +195,12 @@ export function Cart({ isOpen, onClose }: { isOpen: boolean; onClose: any }) {
              
               </div>
               <div className="space-y-2">
-                <h3 className="font-mono font-semibold text-lg uppercase tracking-wide text-brutalist-black">Cart Empty</h3>
+                <h3 className="font-mono font-medium text-lg uppercase tracking-wide text-brutalist-black">Cart Empty</h3>
                 
               </div>
               <button
                 onClick={onClose}
-                className="font-mono font-semibold text-sm uppercase rounded-none bg-brutalist-black text-brutalist-white px-6 py-3 transition-all duration-200 hover:bg-brutalist-grey focus-ring"
+                className="font-mono font-medium text-sm uppercase rounded-none bg-brutalist-black text-brutalist-white px-6 py-3 transition-all duration-200 hover:bg-brutalist-grey focus-ring"
               >
                 BROWSE
               </button>
@@ -218,11 +219,11 @@ export function Cart({ isOpen, onClose }: { isOpen: boolean; onClose: any }) {
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b bg-brutalist-white">
                       <div className="flex items-center space-x-3">
-              <div className="size-8 bg-[#00b140] rounded-none flex items-center justify-center">
+              <div className="size-8 bg-[#00b140] rounded-tr-[3px] rounded-br-[3px] flex items-center justify-center">
               
               </div>
             <div>
-              <h2 className="font-mono font-semibold text-sm uppercase tracking-wide">Cart</h2>
+              <h2 className="font-mono font-medium text-sm uppercase tracking-wide">Cart</h2>
               <p className="font-mono text-xs text-brutalist-grey uppercase">
                 {items.length} item{items.length !== 1 ? 's' : ''}
               </p>
@@ -273,7 +274,7 @@ export function Cart({ isOpen, onClose }: { isOpen: boolean; onClose: any }) {
                       <div className="flex-1 min-w-0 space-y-3">
                         {/* Product Title */}
                         <div>
-                          <h3 className="font-mono font-semibold text-sm uppercase tracking-wide leading-tight">
+                          <h3 className="font-mono font-medium text-sm uppercase tracking-wide leading-tight">
                             {item.title || item.name || item.id.split('-').slice(0, -1).join('-')}
                           </h3>
                         </div>
@@ -283,7 +284,7 @@ export function Cart({ isOpen, onClose }: { isOpen: boolean; onClose: any }) {
                           <div className="flex items-center justify-between">
                             <span className="font-mono text-xs uppercase text-brutalist-grey tracking-wider">Price</span>
                             <div className="text-right">
-                              <p className="font-mono font-semibold text-sm">
+                              <p className="font-mono font-medium text-sm">
                                 {item.selectedVariant 
                                   ? `${item.selectedVariant.price.currencyCode} ${parseFloat(item.selectedVariant.price.amount).toFixed(2)}`
                                   : item.price 
@@ -373,7 +374,7 @@ export function Cart({ isOpen, onClose }: { isOpen: boolean; onClose: any }) {
                             >
                               <Plus className="h-3 w-3" />
                             </button>
-                            <span className="font-mono font-semibold text-sm px-4 py-2 min-w-[50px] text-center">
+                            <span className="font-mono font-medium text-sm px-4 py-2 min-w-[50px] text-center">
                               {item.quantity}
                             </span>
                             <button
@@ -426,7 +427,7 @@ export function Cart({ isOpen, onClose }: { isOpen: boolean; onClose: any }) {
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
                   <span className="font-mono text-xs uppercase text-brutalist-grey tracking-wider">Subtotal</span>
-                  <span className="font-mono font-semibold text-lg">{totalFormatted}</span>
+                  <span className="font-mono font-medium text-lg">{totalFormatted}</span>
                 </div>
                 <p className="font-mono text-xs uppercase tracking-wide text-brutalist-grey text-center">
                   Excluding taxes & shipping
@@ -439,7 +440,7 @@ export function Cart({ isOpen, onClose }: { isOpen: boolean; onClose: any }) {
               <button
                 onClick={handleCheckout}
                 disabled={items.length === 0 || isProcessing || inventoryCheck?.hasErrors || isCheckingInventory}
-                className="w-full bg-brutalist-black text-brutalist-white py-3 px-4 font-mono rounded-none font-semibold uppercase text-sm tracking-wide transition-all duration-200 hover:bg-brutalist-grey disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-brutalist-black focus-ring flex items-center justify-between group"
+                className="w-full bg-brutalist-black text-brutalist-white py-3 px-4 font-mono rounded-none font-medium uppercase text-sm tracking-wide transition-all duration-200 hover:bg-brutalist-grey disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-brutalist-black focus-ring flex items-center justify-between group"
                 aria-label="Proceed to checkout"
               >
                 <span>
@@ -454,7 +455,7 @@ export function Cart({ isOpen, onClose }: { isOpen: boolean; onClose: any }) {
                 ) : inventoryCheck?.hasErrors ? (
                   <X className="h-4 w-4" />
                 ) : (
-                  <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  <ChevronRightIcon className="group-hover:translate-x-1 transition-transform" />
                 )}
               </button>
               

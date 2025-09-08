@@ -9,27 +9,27 @@ enum FooterMenuState {
   EXITING,
 }
 
-// CSS animation class mappings for footer menu states
+// CSS animation class mappings for footer menu states (chevron > style for default)
 const getFooterMenuAnimationClasses = (currentState: FooterMenuState, isTopBar: boolean) => {
   const baseClasses = "absolute left-0 h-[2px] bg-brutalist-black origin-center transition-all duration-300 ease-[cubic-bezier(0.68,-0.55,0.265,1.55)]";
   
   if (isTopBar) {
     switch (currentState) {
       case FooterMenuState.OPEN:
-        return `${baseClasses} top-[4px] w-4 rotate-45 translate-y-1`;
+        return `${baseClasses} top-[4px] w-4 -rotate-45 translate-y-1`;
       case FooterMenuState.EXITING:
-        return `${baseClasses} top-[4px] w-4 rotate-0 translate-y-0`;
+        return `${baseClasses} top-[4px] w-[10px] -rotate-45 translate-y-[7px]`;
       default:
-        return `${baseClasses} top-[4px] w-4 rotate-0 translate-y-0`;
+        return `${baseClasses} top-[4px] w-[10px] -rotate-45 translate-y-[7px]`;
     }
   } else {
     switch (currentState) {
       case FooterMenuState.OPEN:
-        return `${baseClasses} top-[12px] w-4 -rotate-45 -translate-y-1`;
+        return `${baseClasses} top-[12px] w-4 rotate-45 -translate-y-1`;
       case FooterMenuState.EXITING:
-        return `${baseClasses} top-[12px] w-4 rotate-90 translate-y-0`;
+        return `${baseClasses} top-[12px] w-[10px] rotate-45 -translate-y-[7px]`;
       default:
-        return `${baseClasses} top-[12px] w-4 rotate-90 translate-y-0`;
+        return `${baseClasses} top-[12px] w-[10px] rotate-45 -translate-y-[7px]`;
     }
   }
 };
@@ -73,7 +73,7 @@ export function FooterMenu() {
       {(menuState === FooterMenuState.OPEN || menuState === FooterMenuState.EXITING) && (
         <nav
           id="footer-menu"
-          className={`absolute left-1/2 bottom-[20%] translate-y-1/2 ml-8 ${
+          className={`absolute left-16 bottom-[20%] translate-y-1/2 max-w-[calc(100vw-8rem)] ${
             menuState === FooterMenuState.OPEN 
               ? 'animate-[slideInLeft_200ms_ease-out_forwards]' 
               : 'animate-[slideOutLeft_200ms_ease-in_forwards]'

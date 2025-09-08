@@ -118,37 +118,15 @@ export function createLazyLoader(options?: IntersectionObserverInit) {
 export function preloadCriticalResources() {
   if (typeof window === 'undefined') return;
   
-  // Preload critical fonts
-  const fontLinks = [
-    '/fonts/geist-mono.woff2',
-  ];
-  
-  fontLinks.forEach(href => {
-    const link = document.createElement('link');
-    link.rel = 'preload';
-    link.as = 'font';
-    link.type = 'font/woff2';
-    link.crossOrigin = 'anonymous';
-    link.href = href;
-    document.head.appendChild(link);
-  });
+  // Note: Font preloading is handled by Next.js automatically
+  // Only preload resources that actually exist in the project
   
   // Preload critical images based on connection
   const quality = getImageQuality();
   if (quality === 'high') {
-    // Only preload hero images on fast connections
-    const criticalImages = [
-      '/images/hero.webp',
-      '/images/logo.svg',
-    ];
-    
-    criticalImages.forEach(href => {
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'image';
-      link.href = href;
-      document.head.appendChild(link);
-    });
+    // Only preload images that actually exist in the project
+    // Currently no critical images to preload
+    console.log('High quality connection detected - no critical images to preload');
   }
 }
 

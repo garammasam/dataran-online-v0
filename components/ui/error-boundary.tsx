@@ -48,13 +48,13 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
             <div className="space-y-3">
               <button
                 onClick={() => typeof window !== 'undefined' && window.location.reload()}
-                className="w-full bg-brutalist-black text-brutalist-white px-6 py-3 font-mono text-sm font-semibold hover:bg-brutalist-grey transition-colors uppercase rounded-none"
+                className="w-full bg-brutalist-black text-brutalist-white px-6 py-3 font-mono text-sm font-medium hover:bg-brutalist-grey transition-colors uppercase rounded-none"
               >
                 Refresh Page
               </button>
               <button
                 onClick={() => typeof window !== 'undefined' && (window.location.href = '/')}
-                className="w-full bg-brutalist-grey bg-opacity-10 text-brutalist-black px-6 py-3 font-mono text-sm font-semibold hover:bg-brutalist-grey hover:bg-opacity-20 transition-colors uppercase rounded-none"
+                className="w-full bg-brutalist-grey bg-opacity-10 text-brutalist-black px-6 py-3 font-mono text-sm font-medium hover:bg-brutalist-grey hover:bg-opacity-20 transition-colors uppercase rounded-none"
               >
                 Go Home
               </button>

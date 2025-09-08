@@ -4,10 +4,10 @@
 export const typography = {
   // Mono font patterns
   mono: {
-    heading: 'font-mono uppercase tracking-wide font-semibold',
+    heading: 'font-mono uppercase tracking-wide font-medium',
     body: 'font-mono text-sm',
     small: 'font-mono text-xs uppercase tracking-wider',
-    button: 'font-mono text-sm uppercase font-semibold',
+    button: 'font-mono text-sm uppercase font-medium',
   },
   
   // Text hierarchy from globals.css

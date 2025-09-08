@@ -137,7 +137,7 @@ function SwipeToRemoveDemo({
         }}
       >
         <div className="flex items-center space-x-2 text-white">
-          <span className="font-mono text-sm font-semibold uppercase">Remove</span>
+          <span className="font-mono text-sm font-medium uppercase">Remove</span>
         </div>
       </div>
       
@@ -429,7 +429,7 @@ export default function OnboardingPage() {
                 {/* Product info */}
                 <div className="text-center space-y-4">
                   <div>
-                    <h3 className="font-mono text-lg font-semibold">{product.title}</h3>
+                    <h3 className="font-mono text-lg font-medium">{product.title}</h3>
                     <p className="font-mono text-sm text-gray-600">{product.price}</p>
                   </div>
 
@@ -549,8 +549,8 @@ export default function OnboardingPage() {
             {showTrackingResults && (
               <div className="border border-gray-200 p-4 space-y-3 animate-[slideUp_300ms_ease-out]">
                 <div className="flex justify-between items-start">
-                  <span className="font-mono text-sm font-semibold">{mockTrackingData.orderId}</span>
-                  <span className="font-mono text-sm font-semibold text-blue-600">SHIPPED</span>
+                  <span className="font-mono text-sm font-medium">{mockTrackingData.orderId}</span>
+                  <span className="font-mono text-sm font-medium text-blue-600">SHIPPED</span>
                 </div>
                 
                 <div className="font-mono text-xs text-gray-600 space-y-1">
@@ -672,7 +672,7 @@ export default function OnboardingPage() {
                   <div className="border-b pb-4">
                     <div className="flex justify-between items-start">
                       <div>
-                        <h4 className="font-mono text-sm font-semibold">{item.title}</h4>
+                        <h4 className="font-mono text-sm font-medium">{item.title}</h4>
                         <p className="font-mono text-xs text-gray-600">Size: {item.variant}</p>
                         <p className="font-mono text-xs text-gray-600">Qty: {item.quantity}</p>
                       </div>
@@ -686,8 +686,8 @@ export default function OnboardingPage() {
             {/* Cart Footer */}
             <div className="p-4 border-t">
               <div className="flex justify-between items-center mb-4">
-                <span className="font-mono text-lg font-semibold">TOTAL:</span>
-                <span className="font-mono text-lg font-semibold">MYR {cartTotal.toFixed(2)}</span>
+                <span className="font-mono text-lg font-medium">TOTAL:</span>
+                <span className="font-mono text-lg font-medium">MYR {cartTotal.toFixed(2)}</span>
               </div>
               
               <div className="text-center">

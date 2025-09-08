@@ -11,7 +11,7 @@
   
   /* Secondary headings - medium contrast */
   .text-heading-secondary {
-    @apply text-[#0b0c0c] font-semibold tracking-wide;
+    @apply text-[#0b0c0c] font-medium tracking-wide;
   }
   
   /* Body text - good contrast */
@@ -92,7 +92,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 99%;
+    --background: 0 0% 100%; /* change back to 99 */
     --foreground: 0 0% 4%;
     --card: 0 0% 99%;
     --card-foreground: 0 0% 4%;
@@ -349,6 +349,14 @@ body:has([data-state="open"]) {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes blip {
+  0% { opacity: 1; }
+  25% { opacity: 0; }
+  50% { opacity: 1; }
+  75% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 /* Reduced motion support */

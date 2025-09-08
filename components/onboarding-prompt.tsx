@@ -56,7 +56,7 @@ export function OnboardingPrompt() {
         </div>
         
         <div className="mb-4">
-          <h3 className="font-mono text-sm font-semibold mb-1">WEBSITE TOUR</h3>
+          <h3 className="font-mono text-sm font-medium mb-1">WEBSITE TOUR</h3>
           <p className="font-mono text-xs text-gray-600 leading-relaxed">
             Quick tour: product browsing, order tracking, cart management.
           </p>

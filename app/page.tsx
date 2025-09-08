@@ -346,7 +346,7 @@ export default function Page() {
       
       {/* Footer Menu - only show when not on product page */}
       {!expandedProductId && (
-        <div className="fixed bottom-5 left-5 z-10">
+        <div className="absolute bottom-5 left-5 z-10">
           <FooterMenu />
         </div>
       )}
@@ -460,29 +460,11 @@ const ProductGridItem = ({ product, isExpanded, onProductClick, isLowPerf = fals
     }
   }, [product, onProductClick, isExpanded]);
 
-  // Prewarm all gallery images on intent (hover/touch) to avoid cold _next/image miss
+  // Disabled image prewarming to avoid 400 errors with Shopify CDN URLs
+  // The Next.js Image component handles optimization automatically
   const prewarmImage = useCallback(() => {
-    if (hasPrewarmedRef.current) return;
-    const images = (product as any).images && (product as any).images.length > 0 
-      ? (product as any).images 
-      : [{ url: product.image }];
-    
-    try {
-      // Match PDP sizes: max-w-3xl ~ 768px (or your PDP container); q matches ProductImage
-      const w = 896; // aligns with PDP desktop cap we use in sizes
-      const q = 65;
-      
-      // Preload all images for snappy gallery navigation
-      images.forEach((imgData: any) => {
-        const optimized = `/_next/image?url=${encodeURIComponent(imgData.url)}&w=${w}&q=${q}`;
-        const img = new Image();
-        (img as any).fetchPriority = 'low';
-        img.decoding = 'async';
-        img.src = optimized;
-      });
-      
-      hasPrewarmedRef.current = true;
-    } catch {}
+    // Prewarming disabled - Next.js Image component handles optimization
+    hasPrewarmedRef.current = true;
   }, [product]);
 
   if (isExpanded) {

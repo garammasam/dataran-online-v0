@@ -4,7 +4,7 @@ import { useState, useMemo, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 // Removed framer-motion to reduce bundle size
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeftIcon, ChevronRightIcon } from '@/components/ui/morphing-icon';
 import { useCart } from '@/components/cart-context';
 import { Header } from '@/components/header';
 
@@ -219,7 +219,7 @@ export default function CheckoutPage() {
               ) : (
                 <>
                   Proceed to Checkout
-                  <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  <ChevronRightIcon className="group-hover:translate-x-1 transition-transform" />
                 </>
               )}
             </button>
@@ -228,7 +228,7 @@ export default function CheckoutPage() {
               onClick={handleBack}
               className="w-full border border-gray-300 text-black p-4 font-mono uppercase text-sm hover:bg-gray-50 flex items-center justify-center gap-2"
             >
-              <ChevronLeft className="h-4 w-4" />
+              <ChevronLeftIcon />
               BACK TO BROWSE
             </button>
           </div>

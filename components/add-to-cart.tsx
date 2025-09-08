@@ -31,6 +31,7 @@ export function AddToCart({ product, showDropdown, setShowDropdown }: {
   const [showDescriptionForNonVariant, setShowDescriptionForNonVariant] = useState(false);
   const [addingText, setAddingText] = useState('');
   const [isDeletingAdding, setIsDeletingAdding] = useState(false);
+  const [isBlinking, setIsBlinking] = useState(false);
   const { addToCart } = useCart();
 
   // Mobile detection
@@ -119,9 +120,15 @@ export function AddToCart({ product, showDropdown, setShowDropdown }: {
         if (addingText.length > 0) {
           setAddingText(addingText.slice(0, -1));
         } else {
-          // Finished deleting, reset state
+          // Finished deleting, start blinking effect
           setIsDeletingAdding(false);
-          setShowAddedToCart(false);
+          setIsBlinking(true);
+          
+          // Blip twice like old computer (quick on/off)
+          setTimeout(() => {
+            setIsBlinking(false);
+            setShowAddedToCart(false);
+          }, 400); // 4 * 100ms = 400ms total
         }
       }
     }, isDeletingAdding ? deleteSpeed : typeSpeed);
@@ -365,12 +372,16 @@ export function AddToCart({ product, showDropdown, setShowDropdown }: {
               aria-expanded={isSelectingVariant}
             >
               {showAddedToCart ? (
-                <span className="font-medium font-mono uppercase text-sm text-green-600">
-                  {addingText}
-                  <span className="animate-pulse">|</span>
-                </span>
+                isBlinking ? (
+                  <div className="w-6 h-6 bg-[#00b140] rounded-none animate-[blip_400ms_ease-in-out_forwards]"></div>
+                ) : (
+                  <span className="font-medium font-mono uppercase text-sm text-white bg-[#00b140] px-2 h-6 flex items-center justify-center rounded-none">
+                    {addingText}
+                    <span className="animate-pulse">|</span>
+                  </span>
+                )
               ) : (
-                <div className="w-6 h-6 bg-[#00b140] rounded-sm"></div>
+                <div className="w-6 h-6 bg-[#00b140] rounded-tr-[3px] rounded-br-[3px]"></div>
               )}
             </button>
 
@@ -401,7 +412,7 @@ export function AddToCart({ product, showDropdown, setShowDropdown }: {
                             <button
                               key={value}
                               onClick={() => handleOptionSelect(value)}
-                              className={`${isMobile ? 'w-20 h-14' : 'w-16 h-12'} bg-transparent hover:bg-[#00b140] hover:text-brutalist-white transition-all duration-200 font-mono text-sm font-semibold focus-ring rounded-none ${isMobile ? 'active:bg-brutalist-grey active:bg-opacity-10 active:scale-95' : ''}`}
+                              className={`${isMobile ? 'w-20 h-14' : 'w-16 h-12'} bg-transparent hover:bg-[#00b140] hover:text-brutalist-white transition-all duration-200 font-mono text-sm font-medium focus-ring rounded-none ${isMobile ? 'active:bg-brutalist-grey active:bg-opacity-10 active:scale-95' : ''}`}
                               style={{
                                 animationDelay: `${index * 50}ms`,
                                 minHeight: isMobile ? '56px' : '48px', // Larger touch targets on mobile
@@ -424,7 +435,7 @@ export function AddToCart({ product, showDropdown, setShowDropdown }: {
                         setMarqueePosition(0); // Reset marquee position
                         setIsMarqueeSlowed(false); // Reset slow state
                       }}
-                      className="w-full h-12 bg-transparent text-brutalist-black font-medium hover:bg-[#00b140] hover:text-brutalist-white transition-all duration-200 font-mono text-sm font-semibold focus-ring rounded-none"
+                      className="w-full h-12 bg-transparent text-brutalist-black font-medium hover:bg-[#00b140] hover:text-brutalist-white transition-all duration-200 font-mono text-sm font-medium focus-ring rounded-none"
                       aria-label={`Add ${productName} to cart`}
                     >
                       ADD

@@ -11,7 +11,6 @@ export function VendorTypewriter({ vendors, className = '' }: VendorTypewriterPr
   const [currentVendorIndex, setCurrentVendorIndex] = useState(0);
   const [displayText, setDisplayText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
-  const [showSlash, setShowSlash] = useState(false);
 
   useEffect(() => {
     if (vendors.length === 0) return;
@@ -21,9 +20,9 @@ export function VendorTypewriter({ vendors, className = '' }: VendorTypewriterPr
     const currentItem = allItems[currentVendorIndex];
     const fullText = currentItem;
 
-    const typeSpeed = 80; // ms per character
-    const deleteSpeed = 50; // ms per character
-    const pauseTime = currentVendorIndex === vendors.length ? 2500 : 1500; // longer pause for dataran.online
+    const typeSpeed = 15; // ms per character (same as add-to-cart)
+    const deleteSpeed = 15; // ms per character (same as add-to-cart)
+    const pauseTime = currentVendorIndex === vendors.length ? 2500 : 1800; // longer pause for dataran.online
 
     const timer = setTimeout(() => {
       if (!isDeleting) {
@@ -58,7 +57,7 @@ export function VendorTypewriter({ vendors, className = '' }: VendorTypewriterPr
   const isDataranOnline = currentVendorIndex === vendors.length;
   
   return (
-    <span className={`${className} transition-all duration-50 ease-in-out ${isDataranOnline ? 'text-white bg-[#00b140] px-2 py-1 rounded-none' : ''}`}>
+    <span className={`${className} transition-all duration-50 ease-in-out ${isDataranOnline ? 'text-white bg-[#00b140] px-2 h-4 flex items-center justify-center rounded-none' : ''}`}>
       /{displayText}
       <span className="animate-pulse">|</span>
     </span>

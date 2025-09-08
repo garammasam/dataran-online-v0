@@ -8,9 +8,10 @@ export async function GET(request: NextRequest) {
     const vendor = searchParams.get('vendor');
     const collection = searchParams.get('collection');
     const limit = searchParams.get('limit');
+    const priority = searchParams.get('priority'); // New: filter by priority
 
     // Create cache key based on query parameters
-    const cacheKey = createCacheKey('products', { vendor, collection, limit });
+    const cacheKey = createCacheKey('products', { vendor, collection, limit, priority });
     
     // Try to get from cache first
     const cachedProducts = cacheUtils.products.get(cacheKey);
@@ -27,7 +28,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Get all products from source
+    // Get all products from source (already sorted by priority)
     let products = await getAllProducts();
 
     // Apply filters
@@ -39,6 +40,22 @@ export async function GET(request: NextRequest) {
       products = products.filter(product => 
         product.collections?.some(c => c.id === collection)
       );
+    }
+
+    // Filter by priority if specified
+    if (priority) {
+      const priorityNum = parseInt(priority, 10);
+      if (!isNaN(priorityNum)) {
+        products = products.filter(product => {
+          if (!product.tags) return false;
+          const priorityTag = product.tags.find(tag => 
+            tag.toLowerCase().startsWith('priority:')
+          );
+          if (!priorityTag) return false;
+          const productPriority = parseInt(priorityTag.toLowerCase().replace('priority:', '').trim(), 10);
+          return productPriority === priorityNum;
+        });
+      }
     }
 
     // Apply limit

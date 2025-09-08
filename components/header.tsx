@@ -316,7 +316,7 @@ export function Header({
               strokeLinecap="round"
             ></path>
           </svg>
-          <span className={`ml-1 font-semibold transition-colors duration-200 ${
+          <span className={`ml-1 font-medium transition-colors duration-200 ${
             isCartFlashing ? 'text-[#00b140]' : isCartFlashingRed ? 'text-red-500' : 'text-brutalist-black'
           }`}>{totalQuantity}</span>
         </button>

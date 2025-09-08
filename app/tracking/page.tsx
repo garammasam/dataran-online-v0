@@ -200,12 +200,12 @@ export default function TrackingPage() {
                     <div key={order.orderId} className="border border-gray-200 p-4 space-y-3">
                       <div className="flex justify-between items-start">
                         <div className="flex flex-col">
-                          <span className="font-mono text-sm font-semibold">{order.orderId}</span>
+                          <span className="font-mono text-sm font-medium">{order.orderId}</span>
                           {searchType === 'order' && order.customerName && (
                             <span className="font-mono text-xs text-gray-600 mt-1">{order.customerName}</span>
                           )}
                         </div>
-                        <span className={`font-mono text-sm font-semibold ${getStatusColor(order.status)}`}>
+                        <span className={`font-mono text-sm font-medium ${getStatusColor(order.status)}`}>
                           {getStatusText(order.status)}
                         </span>
                       </div>
